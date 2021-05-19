@@ -1,54 +1,14 @@
-var express= require("express"),
-    app= express(),
-    bodyparser= require("body-parser"),
-    mongoose= require("mongoose");
+var express       = require("express"),
+    app           = express(),
+    bodyparser    = require("body-parser"),
+    mongoose      = require("mongoose"),
+    Campground    = require("./models/campground"),
+    seedDB        = require("./seeds")
 
-    
+seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp",{useNewUrlParser: true,useUnifiedTopology: true});
-
 app.use(bodyparser.urlencoded({extended: true}));
 app.set("view engine","ejs");
-
-// SCHEMA SETUP
-var campgroundSchema= new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-var Campground= mongoose.model("Campground",campgroundSchema);
-
-
-// to make new object to database
-//  Campground.create(
-//      {
-//          name: "Granite Hill",
-//          image: "https://images.unsplash.com/photo-1517824806704-9040b037703b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
-//          description:  "This is the huge granite hill, no bathrooms. No water. Beautiful granite"   
-//     },
-//      function(err,campground)
-//      {
-//          if(err){
-//              console.log(err);
-//          }else{
-//              console.log("NEWLY CREATED CAMPGROUND:");
-//              console.log(campground);
-//          }
-//      }
-//  )
-
-// when we dont have the database
-// var campgrounds=[
-//     {name: "Salmon Creek", image: "https://images.unsplash.com/photo-1537565266759-34bbc16be345?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"},
-//     {name: "Granite Hill", image: "https://images.unsplash.com/photo-1517824806704-9040b037703b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"},
-//     {name: "Mountain's Goat", image: "https://images.unsplash.com/photo-1563299796-17596ed6b017?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"},
-//     {name: "Salmon Creek", image: "https://images.unsplash.com/photo-1537565266759-34bbc16be345?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"},
-//     {name: "Granite Hill", image: "https://images.unsplash.com/photo-1517824806704-9040b037703b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"},
-//     {name: "Mountain's Goat", image: "https://images.unsplash.com/photo-1563299796-17596ed6b017?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"},
-//     {name: "Salmon Creek", image: "https://images.unsplash.com/photo-1537565266759-34bbc16be345?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"},
-//     {name: "Granite Hill", image: "https://images.unsplash.com/photo-1517824806704-9040b037703b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"},
-//     {name: "Mountain's Goat", image: "https://images.unsplash.com/photo-1563299796-17596ed6b017?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"}
-// ]
 
 
 app.get("/",function(req,res){
@@ -89,7 +49,7 @@ app.get("/campgrounds/new",function(req,res){
 // SHOW ROUTE - shows info about a particular campground
 app.get("/campgrounds/:id",function(req,res){
     // find the campground with provided Id
-    Campground.findById(req.params.id,function(err, foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err){
             console.log(err);
         }
