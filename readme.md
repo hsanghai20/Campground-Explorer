@@ -56,3 +56,10 @@ v3
 # Add a comment model!
 * Make our errors go away
 * Display comments on the campground page
+
+# v4
+# Create New/Create
+* Discuss nested route
+* Add the comment new and create route
+* Add the new comment form
+

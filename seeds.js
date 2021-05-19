@@ -47,7 +47,7 @@ function seedDB(){
                                 console.log("comment added");
                             }
                         });
-                    }
+                      }
                 })
             })
         });
