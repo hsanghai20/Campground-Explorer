@@ -1,4 +1,6 @@
-v1
+# Link of the app
+* https://yelp-camp-s.herokuapp.com/
+# v1
 # YelpCamp
 *Add Landing Page	
 *Add Campgrounds Page that lists all campgrounds
@@ -24,13 +26,12 @@ Each Campground has:
 *Add a navbar to all templates
 *Style the new campground form
 
-29
 # Databases
 ## Intro to Databases
 * What is a database?
 * SQL vs. NoSQL
 
-v2
+# v2
 # Adding moongoose to our YelpCamp app so that it save all the data
 # Add Mongoose
 *Install and configure mongoose
@@ -43,7 +44,7 @@ v2
 * Show db.collection.drop()
 * Add a show rooute/template
 
-v3
+# v3
 # Refactor mongoose code
 * Create a models directry
 * Use module exports
@@ -153,3 +154,26 @@ v3
 
 # Dynamic price feature list
 * change schema of campground
+
+# v11_deployed
+# Deploy to heroku
+* First set the git init and commit everything we want in our app to run
+* login to heroku account by using heroku login -i command
+* heroku create command will help us to make a link for our app
+* set start script to package.json so that heroku knows about start point
+* only do this after every thing get commited
+* git push heroku master
+* also add var PORT= process.env.PORT || 3000; so that it listen to heroku app port
+* "heroku run" this command act as we are connect to heroku and now we can do heroku run ls and
+  all command which we do in terminal (by this we can install the package we missed)
+* open particular app in console write "heroku git:remote -a <app_name>" 
+# Connecting to database
+* Use mongo lab
+* see steps to make a database cluster on net
+
+# Enviroment variables
+* as when we want to add some new feature we dont want changes to done on database online
+* so we work on local database to check that out
+* for that we set up env variable once in heroku to set that url to connect to database
+* and locally we set url as default
+* in heroku set that in settings and config vars.

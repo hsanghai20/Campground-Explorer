@@ -12,10 +12,14 @@ var express             = require("express"),
     User                = require("./models/user"),
     commentRoutes       = require("./routes/comments"),
     campgroundRoutes    = require("./routes/campgrounds"),
-    indexRoutes         = require("./routes/index");
-    
-// seedDB();
-mongoose.connect("mongodb://localhost/yelp_camp",{useNewUrlParser: true,useUnifiedTopology: true});
+    indexRoutes         = require("./routes/index"),
+    PORT                = process.env.PORT || 3000;
+//seedDB();
+//mongoose.connect("mongodb://localhost/yelp_camp",{useNewUrlParser: true,useUnifiedTopology: true});
+// mongoose.connect("mongodb+srv://harsh123:harsh123@yelpcamp-k8nrv.mongodb.net/yelpcamp?retryWrites=true&w=majority",{useNewUrlParser: true,useUnifiedTopology: true});
+// by this we set our default url as localhost and set key and value in database so that we can use that database in heroku app
+var url= process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
+mongoose.connect(url,{useNewUrlParser: true,useUnifiedTopology: true});
 app.use(bodyparser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 mongoose.set('useFindAndModify', false);
@@ -24,7 +28,7 @@ app.use(express.static(__dirname+ "/public"));
 
 // passport config
 app.use(require("express-session")({
-    secret: "Welcome to Yelpcamp World",   
+    secret: "Welcome to Yelpcamp World",
     resave: false,
     saveUninitialized: false
 }));
@@ -52,6 +56,6 @@ app.use("/campgrounds",campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 app.use(indexRoutes);
 
-app.listen(3000,function(){
+app.listen(PORT,function(){
     console.log("Yelp Camp Has Started!");
 })

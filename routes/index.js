@@ -13,8 +13,8 @@ router.get("/",function(req,res){
 
 //show register form
 router.get("/register",function(req,res){
-    res.render("register");
-})
+     res.render("login-signup");
+ })
 
 //post register route
 router.post("/register",function(req,res){
@@ -23,7 +23,7 @@ router.post("/register",function(req,res){
         if(err){
             // err came from passport;
             req.flash("error",err.message);
-            res.render("register");
+            res.render("login-signup");
         }
         else{
             passport.authenticate("local")(req,res, function(){
@@ -38,7 +38,7 @@ router.post("/register",function(req,res){
 // show the login form
 router.get("/login",function(req,res){
     // either by passing the variable message we can access the flash message
-    res.render("login");
+    res.render("login-signup");
 })
 //middleware
 router.post("/login",passport.authenticate("local",{
