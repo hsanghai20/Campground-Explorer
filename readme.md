@@ -5,7 +5,7 @@ This project was done in an attempt to learn the full stack development of a web
   * Circular and beautiful UI
   * Authentication and Authorization for different access levels
 
-#### Link of the app: https://yelp-camp-s.herokuapp.com/
+#### Link to the live app: https://yelp-camp-s.herokuapp.com/
 
 For further queries or setup info, feel free to reach out at: harshsanghai123@gmail.com
 
