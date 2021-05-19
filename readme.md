@@ -63,3 +63,8 @@ v3
 * Add the comment new and create route
 * Add the new comment form
 
+
+# v5
+# Style show page
+* Add sidebar to show page
+* Display comment nicely
