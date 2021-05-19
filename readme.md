@@ -101,4 +101,8 @@ v3
 * Associate users and comment
 * Save author's name to a comment automatically
 
+# v9
+# Users+ campground
+* Prevent the unauthorised user from creating a campground
+* Save username + id to newly created campground
 
