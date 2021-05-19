@@ -7,16 +7,18 @@ var express             = require("express"),
     Campground          = require("./models/campground"),
     methodOverride      = require("method-override"),
     Comment             = require("./models/comment"),
+    flash               = require("connect-flash"),
     seedDB              = require("./seeds"),
     User                = require("./models/user"),
     commentRoutes       = require("./routes/comments"),
     campgroundRoutes    = require("./routes/campgrounds"),
     indexRoutes         = require("./routes/index");
-
+    
 // seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp",{useNewUrlParser: true,useUnifiedTopology: true});
 app.use(bodyparser.urlencoded({extended: true}));
 app.set("view engine","ejs");
+mongoose.set('useFindAndModify', false);
 // dir name refers to the directry we are presently in........
 app.use(express.static(__dirname+ "/public"));
 
@@ -32,11 +34,14 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 //==============END============
-
+// for the error message we use flash here we use flash to use it
+app.use(flash());
 // this code will help to pass currentUser in all the ejs file
 // this is used when we want that a particular file can be used anywhere
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 })
 //for update and destroy campgrounds

@@ -22,15 +22,17 @@ router.post("/",middleware.isLoggedIn,function(req,res){
     var name=req.body.name;
     var image= req.body.image;
     var description= req.body.description;
+    var price = req.body.price;
     var author   = {
         id: req.user._id,
         username: req.user.username
     }
-    var newcampground= {name: name, image: image, description: description,author: author};
+    var newcampground= {name: name, image: image, description: description,author: author,price: price};
     Campground.create(newcampground,function(err,newlyCreated){
         if(err){
             console.log(err);
         }else{
+            req.flash("success","New campground added");
             res.redirect("/campgrounds");
         }
     })
@@ -68,6 +70,7 @@ router.put("/:id",middleware.checkCampgroundOwnership,function(req,res){
         if(err){
             res.redirect("/campgrounds")
         }else{
+            req.flash("success","Campground edited successfully");
             res.redirect("/campgrounds/"+ req.params.id);
         }
     })
@@ -76,10 +79,11 @@ router.put("/:id",middleware.checkCampgroundOwnership,function(req,res){
 
 // DESTROY ROUTE
 router.delete("/:id",middleware.checkCampgroundOwnership,function(req,res){ 
-    Campground.findOneAndRemove(req.params.id,function(err,deletedCampground){
+    Campground.findByIdAndRemove(req.params.id,function(err,deletedCampground){
         if(err){
             res.redirect("/campgrounds")
         }else{
+            req.flash("success","Removed campground successfully!");
             res.redirect("/campgrounds")
         }
     })

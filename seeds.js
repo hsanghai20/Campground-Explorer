@@ -21,13 +21,13 @@ var data=[
     },
 ]
 function seedDB(){
-    // User.remove({},function(err){
-    //     if(err){
-    //         console.log(err)
-    //     }else{
-    //         console.log("Removed User")
-    //     }
-    // })
+    User.remove({},function(err){
+        if(err){
+            console.log(err)
+        }else{
+            console.log("Removed User")
+        }
+    })
     // Remove all campgrounds
     Campground.remove({},function(err){
         // if(err){
