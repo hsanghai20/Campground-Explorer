@@ -91,3 +91,7 @@ v3
 
 # Auth pt 5- Show/Hide links
 * Show/hide auth links in navbar correctly 
+
+# V7
+# Refactor the routes 
+* Basically make our app.js simple and smaller so that its easy to understand
